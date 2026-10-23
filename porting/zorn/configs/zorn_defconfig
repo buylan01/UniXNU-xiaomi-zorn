@@ -1,0 +1,15 @@
+# Conservative bring-up configuration for Redmi K80 (Zorn / SM8650).
+# Baseline XNU platform path only; this does not imply hardware support.
+# Keep storage and other device I/O disabled until zorn-specific drivers exist.
+
+CONFIG_XNU_SOURCE_CORECRYPTO14=y
+CONFIG_XNU_SOURCE_PTHREAD=y
+CONFIG_XNU_ARM_DT_PLATFORM=y
+CONFIG_XNU_ARMCPU=y
+CONFIG_XNU_CRYPTO_BOOTSTRAP="prelinked"
+# CONFIG_XNU_NATIVE_UFS is not set
+
+# Hardware bring-up intentionally deferred:
+# CONFIG_XNU_NATIVE_DISPLAY is not set
+# CONFIG_XNU_NATIVE_TOUCH is not set
+# CONFIG_XNU_NATIVE_GPU is not set
