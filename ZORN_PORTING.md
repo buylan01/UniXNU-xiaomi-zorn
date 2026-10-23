@@ -85,3 +85,39 @@ Initial read-only ADB diagnostics are complete. Do not repeat them unless a new 
 ## Current blocker
 
 No verified zorn-specific UniXNU device repository/UEFI platform has been identified yet. Next work is source/boot-chain analysis and UEFI feasibility, not another round of generic property collection or a guessed `zorn_defconfig`.
+
+
+## Official zorn device-tree source audit
+
+Reviewed the Xiaomi public `kernel_devicetree` branch `bsp-zorn-v-oss` at tree commit `e6826f9350752ebceebee4d1d4ed20e0edf4d3a4`. Relevant files:
+
+- `qcom/zorn-sm8650-overlay.dts` (blob `8b315d748f8696bd838b592409e13cc12bd27bb5`)
+- `qcom/zorn-sm8650.dtsi` (blob `b5f14d2128432307d53959eaec75f44e69729adf`)
+- `qcom/zorn-pinctrl.dtsi` (blob `53882a30fdc6594a0bb343232caccbcf6c59a78a`)
+- `qcom/xiaomi-sm8650-common.dtsi` (blob `a45877e80823204521dfd16a3783f8db703c402c`)
+- shared SoC source `qcom/pineapple.dtsi` (blob `2b94b3acd02a71ea9e7f5454de659b5720771fe1`)
+
+The public zorn overlay declares:
+- model: `Qualcomm Technologies, Inc. Zorn based on SM8650`
+- compatible list: `qcom,pineapple-mtp`, `qcom,pineapple`, `qcom,pineapplep-mtp`, `qcom,pineapplep`, `qcom,mtp`
+- `qcom,msm-id = <557 0x10000>, <557 0x20000>, <577 0x10000>, <577 0x20000>`
+- `qcom,board-id = <8 0>`
+- `xiaomi,miboard-id = <0xd 0>`
+
+The zorn DTSI includes `zorn-pinctrl.dtsi` and `xiaomi-sm8650-common.dtsi`; the latter includes `pineapple-mtp.dtsi`. The zorn DTSI comments describe it as attribution/public platform attribution, so it must not be mistaken for a complete runtime DTB. These compatible strings and board IDs are **from the public source**, not a direct handset readback (ADB denied access to the live device-tree nodes).
+
+The shared Pineapple DTSI shows an eight-core CPU topology and the UFS alias `ufshc1 = &ufshc_mem`, but these are Linux DT descriptions, not values to copy directly into an Apple Device Tree. ADT structure, memory ownership and interrupt/timer properties still need to be derived for the actual XNU handoff.
+
+## First implementation scaffold
+
+Added a non-buildable staging area at `porting/zorn/` on this branch:
+
+- `README.md`: scope, evidence rules and promotion gates.
+- `board.toml.template`: required UniXNU board schema with build-blocking `example = true`; no guessed IPSW, KernelCache pin, slide, DRAM window or UEFI FD base.
+- `configs/zorn_defconfig.template`: conservative first-entry feature selection; no UFS, display, GPU or other unqualified hardware I/O enabled.
+
+These are intentionally templates, not a working port or a valid boot image. The framework's own contribution guide says board-specific files belong in a dedicated `UniXNU-zorn` repository and firmware platform code in `uefi-zorn`; this staging directory is for review before splitting those repositories.
+
+## Next source-level task
+
+Inspect the exact zorn stock boot image / vendor_boot / DTB chain and identify whether a device-specific Mu-Silicium platform can be derived from the existing Qualcomm platform package. Then pin a supported Apple IPSW/kernelcache and validate the prelink inputs. No partition writes or flash commands are part of this phase.
