@@ -1,0 +1,50 @@
+# TEMPLATE ONLY — not a bootable or buildable Redmi K80 configuration.
+# Do not rename to board.toml until every required value is supported by evidence.
+# Device-specific files belong in a dedicated UniXNU-zorn repository.
+
+[board]
+example = true
+name = "zorn"
+soc = "SM8650"
+description = "Redmi K80 (zorn), Qualcomm SM8650; unqualified port scaffold"
+kit = "zorn"
+
+# [ipsw] must be filled with a chosen, supported Apple target and verified component pins.
+# Do not assume the giulia/PHY120 iPad7,1 target or its KernelCache is automatically suitable.
+#
+# [ipsw]
+# url = "https://..."
+# product = "..."
+# version = "..."
+# build = "..."
+# device_class = "..."
+# chip_id = 0
+# board_id = 0
+# fetch = ["KernelCache", "DeviceTree", "StaticTrustCache"]
+#
+# [kernel]
+# defconfig = "zorn_defconfig"
+#
+# [kernel.prelink]
+# tool = "kits/NativePrelink/emit_prelink.py"
+# kernel = "build/xnu/ios-obj/DEVELOPMENT_ARM64_BCM2837/mach.development.bcm2837.unstripped.noctf"
+# kernelcache_sha256 = "FILL_ONLY_AFTER_VERIFICATION"
+# slide = "FILL_ONLY_AFTER_ABI_AND_RUNTIME_EVIDENCE"
+# roots = []
+#
+# [firmware]
+# config = "zorn"
+# dsc = "Platforms/Xiaomi/ZornPkg/Zorn.dsc"
+# fd = "Build/ZornPkg/{target}_CLANGPDB/FV/SILICIUM_UEFI.fd"
+# packages = []
+#
+# [firmware.defines]
+# DEVICE_MODEL = "zorn"
+#
+# [payload]
+# volume = "ZORNESP"
+# size_mib = 24
+# loader = "firmware"
+# title = "Redmi K80 UniXNU — bring-up only"
+# dram_size = "0x0" # MUST be replaced with a validated handoff-window size.
+# panic_screen = true
