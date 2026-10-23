@@ -121,3 +121,8 @@ These are intentionally templates, not a working port or a valid boot image. The
 ## Next source-level task
 
 Inspect the exact zorn stock boot image / vendor_boot / DTB chain and identify whether a device-specific Mu-Silicium platform can be derived from the existing Qualcomm platform package. Then pin a supported Apple IPSW/kernelcache and validate the prelink inputs. No partition writes or flash commands are part of this phase.
+
+
+## Boot-chain research note
+
+Added [`porting/zorn/BOOT_CHAIN_RESEARCH.md`](porting/zorn/BOOT_CHAIN_RESEARCH.md), comparing public zorn Android build configurations and separating their packaging hints from the still-unknown exact stock image chain. The note records boot-header-v4 / separate init_boot-vendor_boot-dtbo conventions seen in community build configs, but explicitly does not treat these as proof of the active HyperOS image layout or permission to write any partition.
