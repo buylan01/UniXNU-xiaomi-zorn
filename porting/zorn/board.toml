@@ -1,7 +1,9 @@
 # Redmi K80 / Zorn (SM8650).
 # Active bring-up config, not a qualified boot configuration.
-# Unknown IPSW, KernelCache, prelink slide and UEFI parameters are deliberately omitted.
-# XNU build may compile and then stop at prelink until those inputs are qualified.
+# Unknown prelink slide, roots and UEFI parameters are deliberately omitted.
+# The IPSW below is a shared UniXNU reference target for testing the framework's
+# Darwin 23 / XNU 10063 build path; it is not a Zorn firmware image and does not
+# qualify this board for boot.
 
 [board]
 name = "zorn"
@@ -9,10 +11,23 @@ soc = "SM8650"
 description = "Redmi K80 (Zorn), Qualcomm SM8650 / pineapple"
 kit = "zorn"
 
+# Candidate reference kernelcache also used by the sheng and giulia reference
+# projects. First verify its manifest via "unixnu ipsw info"; do not copy their
+# device-specific prelink slide, roots, ADT or UEFI configuration.
+[ipsw]
+url = "https://updates.cdn-apple.com/2025SpringFCS/fullrestores/122-77166/DCA6CFE8-90E9-4B92-880D-3DE171798E40/iPad_Pro_HFR_17.7.11_21H461_Restore.ipsw"
+product = "iPad7,1"
+version = "17.7.11"
+build = "21H461"
+device_class = "j120ap"
+chip_id = 0x8011
+board_id = 12
+fetch = ["KernelCache"]
+
 [kernel]
 defconfig = "zorn_defconfig"
 
 # Intentionally no [kernel.prelink] yet.
-# Do not copy slide, roots, kernelcache hash, or image addresses from sheng/giulia/PHY120.
-# After selecting a compatible target IPSW and original KernelCache, add a verified
-# [kernel.prelink] section here.
+# Before adding it, verify the decompressed KernelCache and the correct XNU ABI,
+# then establish the slide, roots and early-security-init requirements for this
+# build. Never copy the reference board's device-specific values.
