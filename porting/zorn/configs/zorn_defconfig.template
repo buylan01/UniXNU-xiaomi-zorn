@@ -1,0 +1,28 @@
+# TEMPLATE ONLY — rename to zorn_defconfig only in the dedicated device repository
+# after checking these options against the pinned UniXNU revision.
+# First milestone: establish XNU entry/diagnostics. No device I/O is assumed.
+
+CONFIG_XNU_SOURCE_CORECRYPTO14=y
+CONFIG_XNU_SOURCE_PTHREAD=y
+CONFIG_XNU_ARM_DT_PLATFORM=y
+CONFIG_XNU_ARMCPU=y
+CONFIG_XNU_CRYPTO_BOOTSTRAP="prelinked"
+
+# Hardware-dependent features intentionally disabled until zorn-specific support exists.
+# CONFIG_XNU_NATIVE_UFS is not set
+# CONFIG_XNU_NATIVE_AES is not set
+# CONFIG_XNU_NATIVE_VIRTIO_BLOCK is not set
+# CONFIG_XNU_NATIVE_RAM_BLOCK is not set
+# CONFIG_XNU_NATIVE_LEGACY_DISPLAY is not set
+# CONFIG_XNU_NATIVE_MOBILE_DISPLAY is not set
+# CONFIG_XNU_NATIVE_ADRENO is not set
+# CONFIG_XNU_SHENG_PMGR is not set
+# CONFIG_XNU_BOOT_PROGRESS is not set
+# CONFIG_XNU_VERIFIED_ROOT_PROBE is not set
+# CONFIG_XNU_OWNER_ROOT_AUDIT is not set
+# CONFIG_XNU_OWNER_ROOT_TRUST is not set
+# CONFIG_XNU_OWNER_CACHE_MOUNT is not set
+# CONFIG_XNU_OWNER_CACHE_STARTUP is not set
+# CONFIG_XNU_OWNER_BOOT_MANIFEST is not set
+# CONFIG_XNU_OWNER_DATA_MOUNT is not set
+# CONFIG_XNU_OWNER_UNION_SYSTEMOS is not set
