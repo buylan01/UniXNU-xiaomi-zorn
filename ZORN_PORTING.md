@@ -44,6 +44,15 @@ The `sheng` reference is a method/example only. Its board file targets Xiaomi Pa
 4. The XNU kernel build step requires macOS/Xcode. Ubuntu can be used for source review and parts of the firmware/build preparation, but it is not a supported host for the kernel step.
 5. Do not flash or erase partitions during early bring-up. Prefer a documented reversible RAM-boot test if the K80 bootloader supports it; verify device support and recovery procedure first.
 
+## Same-SoC reference port
+
+The UniXNU device index lists two community ports on SM8650, neither is a Redmi K80 port:
+
+- OPPO Find X7 Ultra (`PHY120`): UEFI/menu works; kernel builds in CI, but payload discovery and prelink/device boot remain pending. This is useful as a UEFI/platform reference, not as a source of zorn constants.
+- OnePlus Ace 5 (`giulia` / PKG110): its public project reports XNU entry and later userland/Setup progress on a different SM8650 board, with a Darwin 22 / iOS 16 target. Its `board.toml`, ADT generator, UFS and display details are board-specific. Use the architecture and staged diagnostic approach as a reference only; do not transplant memory maps, kernel arguments, UFS addresses, DT values or image pins.
+
+This cross-reference means there is an SM8650 precedent worth studying before designing zorn from scratch. The remaining work is to compare its generic-vs-board-specific implementation and the official zorn device tree, then determine which UEFI components can be reused safely.
+
 ## Bring-up sequence
 
 ### Phase 0 — source and boot-chain research
