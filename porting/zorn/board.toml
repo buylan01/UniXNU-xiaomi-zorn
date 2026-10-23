@@ -1,0 +1,18 @@
+# Redmi K80 / Zorn (SM8650).
+# Active bring-up config, not a qualified boot configuration.
+# Unknown IPSW, KernelCache, prelink slide and UEFI parameters are deliberately omitted.
+# XNU build may compile and then stop at prelink until those inputs are qualified.
+
+[board]
+name = "zorn"
+soc = "SM8650"
+description = "Redmi K80 (Zorn), Qualcomm SM8650 / pineapple"
+kit = "zorn"
+
+[kernel]
+defconfig = "zorn_defconfig"
+
+# Intentionally no [kernel.prelink] yet.
+# Do not copy slide, roots, kernelcache hash, or image addresses from sheng/giulia/PHY120.
+# After selecting a compatible target IPSW and original KernelCache, add a verified
+# [kernel.prelink] section here.
